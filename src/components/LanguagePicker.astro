@@ -1,0 +1,86 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+---
+
+<div class="language-picker">
+  <div class="current-language">
+    <span>{currentLang.toUpperCase()}</span>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+  
+  <div class="language-dropdown">
+    <a href="/" class={currentLang === 'en' ? 'active' : ''}>EN</a>
+    <a href="/fr" class={currentLang === 'fr' ? 'active' : ''}>FR</a>
+    <a href="/ar" class={currentLang === 'ar' ? 'active' : ''}>AR</a>
+  </div>
+</div>
+
+<style>
+  .language-picker {
+    position: relative;
+  }
+  
+  .current-language {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--radius-md);
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease;
+  }
+  
+  .current-language:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .current-language span {
+    margin-right: 6px;
+    font-weight: 600;
+  }
+  
+  .language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1001;
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 8px 0;
+    min-width: 100px;
+    display: none;
+    margin-top: 8px;
+  }
+  
+  .rtl .language-dropdown {
+    right: auto;
+    left: 0;
+  }
+  
+  .language-picker:hover .language-dropdown,
+  .language-picker:focus-within .language-dropdown {
+    display: block;
+  }
+  
+  .language-dropdown a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: background-color 0.2s ease;
+  }
+  
+  .language-dropdown a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .language-dropdown a.active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,156 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+---
+
+<section id="home" class="hero">
+  <div class="hero-content container">
+    <div class="hero-text">
+      <h1 class="fade-in">{t('hero.title')}</h1>
+      <p class="fade-in">{t('hero.subtitle')}</p>
+      
+      <div class="hero-features fade-in">
+        <div class="feature">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>{t('hero.bedrooms', { count: '4' })}</span>
+        </div>
+        
+        <div class="feature">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-20"></path>
+            <path d="M5 12v-6a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6"></path>
+            <path d="M2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2 -2v-6"></path>
+            <path d="M12 12v6"></path>
+          </svg>
+          <span>{t('hero.pool')}</span>
+        </div>
+        
+        <div class="feature">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>{t('hero.price', { price: '€350/night' })}</span>
+        </div>
+      </div>
+      
+      <div class="hero-cta fade-in">
+        <a href="#contact" class="btn">{t('hero.bookNow')}</a>
+        <a href="#gallery" class="btn btn-secondary">{t('hero.viewGallery')}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    color: var(--color-white);
+  }
+  
+  .hero-text {
+    max-width: 650px;
+    animation-delay: 0.2s;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+    color: var(--color-white);
+  }
+  
+  .hero p {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-3);
+    opacity: 0.9;
+  }
+  
+  .hero-features {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    animation-delay: 0.4s;
+  }
+  
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(0, 128, 128, 0.15);
+    backdrop-filter: blur(5px);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .feature svg {
+    color: var(--color-white);
+  }
+  
+  .hero-cta {
+    display: flex;
+    gap: var(--space-2);
+    animation-delay: 0.6s;
+  }
+  
+  .hero-cta .btn {
+    padding: 12px 24px;
+  }
+  
+  .hero-cta .btn-secondary {
+    color: var(--color-white);
+    border-color: var(--color-white);
+  }
+  
+  .hero-cta .btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: var(--color-white);
+  }
+  
+  @media (max-width: 768px) {
+    .hero {
+      height: 90vh;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+    }
+    
+    .hero-features {
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    
+    .feature {
+      width: fit-content;
+    }
+    
+    .hero-cta {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .hero-cta .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

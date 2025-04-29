@@ -1,0 +1,263 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+
+// Gallery images
+const galleryImages = [
+  {
+    url: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    title: t('gallery.exterior'),
+    caption: t('gallery.exteriorCaption')
+  },
+  {
+    url: 'https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    title: t('gallery.livingRoom'),
+    caption: t('gallery.livingRoomCaption')
+  },
+  {
+    url: 'https://images.pexels.com/photos/3935350/pexels-photo-3935350.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    title: t('gallery.bedroom'),
+    caption: t('gallery.bedroomCaption')
+  },
+  {
+    url: 'https://images.pexels.com/photos/2736388/pexels-photo-2736388.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    title: t('gallery.kitchen'),
+    caption: t('gallery.kitchenCaption')
+  },
+  {
+    url: 'https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    title: t('gallery.bathroom'),
+    caption: t('gallery.bathroomCaption')
+  },
+  {
+    url: 'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    title: t('gallery.pool'),
+    caption: t('gallery.poolCaption')
+  }
+];
+---
+
+<section id="gallery" class="gallery">
+  <div class="container">
+    <h2 class="section-title">{t('gallery.title')}</h2>
+    
+    <div class="gallery-description">
+      <p>{t('gallery.description')}</p>
+    </div>
+    
+    <div class="gallery-grid">
+      {galleryImages.map((image, index) => (
+        <div class="gallery-item" data-index={index}>
+          <img src={image.url} alt={image.title} loading="lazy">
+          <div class="gallery-item-overlay">
+            <h3>{image.title}</h3>
+            <p>{image.caption}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- PhotoSwipe root element -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+      <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+          <div class="pswp__counter"></div>
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import PhotoSwipe from 'photoswipe';
+  import 'photoswipe/style.css';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    // Define items array for PhotoSwipe
+    const items = [
+      {
+        src: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        w: 1260,
+        h: 750,
+        title: document.querySelector('[data-index="0"] h3')?.textContent + ' - ' + document.querySelector('[data-index="0"] p')?.textContent
+      },
+      {
+        src: 'https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        w: 1260,
+        h: 750,
+        title: document.querySelector('[data-index="1"] h3')?.textContent + ' - ' + document.querySelector('[data-index="1"] p')?.textContent
+      },
+      {
+        src: 'https://images.pexels.com/photos/3935350/pexels-photo-3935350.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        w: 1260,
+        h: 750,
+        title: document.querySelector('[data-index="2"] h3')?.textContent + ' - ' + document.querySelector('[data-index="2"] p')?.textContent
+      },
+      {
+        src: 'https://images.pexels.com/photos/2736388/pexels-photo-2736388.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        w: 1260,
+        h: 750,
+        title: document.querySelector('[data-index="3"] h3')?.textContent + ' - ' + document.querySelector('[data-index="3"] p')?.textContent
+      },
+      {
+        src: 'https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        w: 1260,
+        h: 750,
+        title: document.querySelector('[data-index="4"] h3')?.textContent + ' - ' + document.querySelector('[data-index="4"] p')?.textContent
+      },
+      {
+        src: 'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+        w: 1260,
+        h: 750,
+        title: document.querySelector('[data-index="5"] h3')?.textContent + ' - ' + document.querySelector('[data-index="5"] p')?.textContent
+      }
+    ];
+    
+    // Initialize PhotoSwipe
+    galleryItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Get index from data attribute
+        const index = parseInt(item.getAttribute('data-index') || '0', 10);
+        
+        // Initialize PhotoSwipe
+        const pswpElement = document.querySelector('.pswp');
+        const options = {
+          index: index,
+          bgOpacity: 0.9,
+          showHideOpacity: true,
+          history: false,
+          closeOnScroll: false
+        };
+        
+        if (pswpElement) {
+          const gallery = new PhotoSwipe({
+            pswpModule: PhotoSwipe,
+            dataSource: items,
+            options: options,
+            ...options
+          });
+          gallery.init();
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .gallery {
+    background-color: var(--color-gray-100);
+    position: relative;
+  }
+  
+  .gallery-description {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-4);
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+  
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: transform var(--transition-normal);
+  }
+  
+  .gallery-item:hover {
+    transform: scale(1.02);
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+  }
+  
+  .gallery-item:hover img {
+    transform: scale(1.1);
+  }
+  
+  .gallery-item-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: var(--space-2);
+    color: var(--color-white);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-normal), transform var(--transition-normal);
+  }
+  
+  .gallery-item:hover .gallery-item-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .gallery-item-overlay h3 {
+    font-size: 1.2rem;
+    margin: 0 0 8px;
+    color: var(--color-white);
+  }
+  
+  .gallery-item-overlay p {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 992px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

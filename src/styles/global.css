@@ -1,0 +1,251 @@
+:root {
+  /* Colors */
+  --color-primary: #008080;
+  --color-primary-light: #0ab3b3;
+  --color-primary-dark: #006666;
+  --color-accent: #F5F5DC;
+  --color-accent-light: #fffff0;
+  --color-accent-dark: #e5e5c5;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-100: #f8f8f8;
+  --color-gray-200: #e9e9e9;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  
+  /* Spacing */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 80px;
+  --space-8: 96px;
+  
+  /* Typography */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Open Sans', sans-serif;
+  --font-arabic: 'Cairo', sans-serif;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  font-size: 16px;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+html.rtl, body.rtl {
+  font-family: var(--font-arabic);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  margin-top: 0;
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+.rtl h1, .rtl h2, .rtl h3, .rtl h4, .rtl h5, .rtl h6 {
+  font-family: var(--font-arabic);
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: var(--space-3);
+}
+
+h2 {
+  font-size: 2.25rem;
+  margin-bottom: var(--space-2);
+}
+
+h3 {
+  font-size: 1.75rem;
+  margin-bottom: var(--space-2);
+}
+
+h4 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-1);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-light);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-2);
+}
+
+section {
+  padding: var(--space-5) 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--space-4);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: var(--color-primary);
+  margin: 12px auto 0;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color var(--transition-fast);
+}
+
+.btn:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-white);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Grid utilities */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-3);
+}
+
+/* Responsive utilities */
+@media (max-width: 576px) {
+  .hidden-xs {
+    display: none !important;
+  }
+  
+  h1 {
+    font-size: 2.25rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  section {
+    padding: var(--space-4) 0;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hidden-xl {
+    display: none !important;
+  }
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RTL specific styles */
+.rtl {
+  text-align: right;
+  direction: rtl;
+}
+
+.rtl .section-title::after {
+  margin: 12px auto 0;
+}

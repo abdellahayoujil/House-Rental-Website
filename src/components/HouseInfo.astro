@@ -1,0 +1,256 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+---
+
+<section id="house-info" class="house-info">
+  <div class="container">
+    <h2 class="section-title">{t('houseInfo.title')}</h2>
+    
+    <div class="house-info-content">
+      <div class="house-info-image">
+        <img src="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Villa Serenity Living Room" loading="lazy">
+      </div>
+      
+      <div class="house-info-text">
+        <p class="house-description">{t('houseInfo.description')}</p>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <div>
+              <h4>{t('houseInfo.size')}</h4>
+              <p>250 m²</p>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"></path>
+              <path d="M2 20h20"></path>
+              <path d="M14 12h2"></path>
+              <path d="M14 8h2"></path>
+              <path d="M8 12h2"></path>
+              <path d="M8 8h2"></path>
+            </svg>
+            <div>
+              <h4>{t('houseInfo.bedrooms')}</h4>
+              <p>4</p>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 2l12 11-12 11"></path>
+            </svg>
+            <div>
+              <h4>{t('houseInfo.bathrooms')}</h4>
+              <p>3</p>
+            </div>
+          </div>
+          
+          <div class="info-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            <div>
+              <h4>{t('houseInfo.floors')}</h4>
+              <p>2</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="price-box">
+          <div class="price-tag">
+            <h3>{t('houseInfo.price')}</h3>
+            <div class="price">€350<span>/{t('houseInfo.night')}</span></div>
+          </div>
+          <p class="price-note">{t('houseInfo.priceNote')}</p>
+        </div>
+        
+        <div class="amenities">
+          <h3>{t('houseInfo.amenities')}</h3>
+          <ul class="amenities-list">
+            <li>{t('houseInfo.amenity1')}</li>
+            <li>{t('houseInfo.amenity2')}</li>
+            <li>{t('houseInfo.amenity3')}</li>
+            <li>{t('houseInfo.amenity4')}</li>
+            <li>{t('houseInfo.amenity5')}</li>
+            <li>{t('houseInfo.amenity6')}</li>
+            <li>{t('houseInfo.amenity7')}</li>
+            <li>{t('houseInfo.amenity8')}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .house-info {
+    background-color: var(--color-gray-100);
+  }
+  
+  .house-info-content {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-4);
+  }
+  
+  .house-info-image {
+    grid-column: span 5;
+  }
+  
+  .house-info-text {
+    grid-column: span 7;
+  }
+  
+  .house-info-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .house-description {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-3);
+    line-height: 1.6;
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1);
+  }
+  
+  .info-item svg {
+    color: var(--color-primary);
+  }
+  
+  .info-item h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+  
+  .info-item p {
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  .price-box {
+    background-color: var(--color-primary-light);
+    color: var(--color-white);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
+  }
+  
+  .price-tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-1);
+  }
+  
+  .price-tag h3 {
+    margin: 0;
+    color: var(--color-white);
+    font-size: 1.2rem;
+  }
+  
+  .price {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .price span {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+  
+  .price-note {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+  
+  .amenities h3 {
+    margin-bottom: var(--space-1);
+    color: var(--color-text);
+  }
+  
+  .amenities-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .amenities-list li {
+    position: relative;
+    padding-left: 24px;
+    line-height: 1.5;
+  }
+  
+  .amenities-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+  }
+  
+  .rtl .amenities-list li {
+    padding-left: 0;
+    padding-right: 24px;
+  }
+  
+  .rtl .amenities-list li::before {
+    left: auto;
+    right: 0;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 992px) {
+    .house-info-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .house-info-image,
+    .house-info-text {
+      grid-column: span 12;
+    }
+    
+    .house-info-image {
+      margin-bottom: var(--space-3);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .amenities-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,303 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import LanguagePicker from './LanguagePicker.astro';
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+const isRtl = currentLang === 'ar';
+---
+
+<header class="header">
+  <div class="container header-container">
+    <div class="logo">
+      <a href={`/${currentLang === 'en' ? '' : currentLang}`}>
+        Villa Serenity
+      </a>
+    </div>
+    
+    <nav class="desktop-nav">
+      <ul>
+        <li><a href="#home" class="nav-link active">{t('nav.home')}</a></li>
+        <li><a href="#house-info" class="nav-link">{t('nav.houseInfo')}</a></li>
+        <li><a href="#location" class="nav-link">{t('nav.location')}</a></li>
+        <li><a href="#gallery" class="nav-link">{t('nav.gallery')}</a></li>
+        <li><a href="#contact" class="nav-link">{t('nav.contact')}</a></li>
+      </ul>
+    </nav>
+    
+    <div class="lang-picker">
+      <LanguagePicker />
+    </div>
+    
+    <button class="mobile-menu-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+  
+  <div class="mobile-nav">
+    <nav>
+      <ul>
+        <li><a href="#home" class="nav-link">{t('nav.home')}</a></li>
+        <li><a href="#house-info" class="nav-link">{t('nav.houseInfo')}</a></li>
+        <li><a href="#location" class="nav-link">{t('nav.location')}</a></li>
+        <li><a href="#gallery" class="nav-link">{t('nav.gallery')}</a></li>
+        <li><a href="#contact" class="nav-link">{t('nav.contact')}</a></li>
+      </ul>
+    </nav>
+    <div class="mobile-lang-picker">
+      <LanguagePicker />
+    </div>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const body = document.body;
+    
+    if (!menuToggle || !mobileNav) return;
+    
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      body.classList.toggle('menu-open');
+    });
+    
+    // Close mobile menu when clicking nav links
+    const mobileNavLinks = mobileNav.querySelectorAll('.nav-link');
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('open');
+        mobileNav.classList.remove('open');
+        body.classList.remove('menu-open');
+      });
+    });
+  });
+  
+  // Header background on scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header');
+    
+    if (!header) return;
+    
+    const toggleHeaderBg = () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    
+    window.addEventListener('scroll', toggleHeaderBg);
+    toggleHeaderBg(); // Check initial state
+  });
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 16px 0;
+    transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .header.scrolled {
+    background-color: var(--color-white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .logo a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .desktop-nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: var(--space-3);
+  }
+  
+  .desktop-nav a {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-text);
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  
+  .desktop-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+  }
+  
+  .desktop-nav a:hover,
+  .desktop-nav a.active {
+    color: var(--color-primary);
+  }
+  
+  .desktop-nav a:hover::after,
+  .desktop-nav a.active::after {
+    width: 100%;
+  }
+  
+  /* Language picker styles */
+  .lang-picker {
+    margin-left: var(--space-2);
+  }
+  
+  /* Mobile menu toggle */
+  .mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1100;
+  }
+  
+  .mobile-menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-primary);
+    border-radius: 3px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .mobile-menu-toggle.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  
+  .mobile-menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-toggle.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+  
+  /* Mobile navigation */
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--color-white);
+    z-index: 1000;
+    padding: 80px var(--space-3) var(--space-3);
+    transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+  
+  .rtl .mobile-nav {
+    right: auto;
+    left: -100%;
+    transition: left 0.3s ease;
+  }
+  
+  .mobile-nav.open {
+    right: 0;
+  }
+  
+  .rtl .mobile-nav.open {
+    right: auto;
+    left: 0;
+  }
+  
+  .mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .mobile-nav li {
+    margin-bottom: var(--space-2);
+  }
+  
+  .mobile-nav a {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    padding: var(--space-1) 0;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .mobile-nav a:hover,
+  .mobile-nav a.active {
+    color: var(--color-primary);
+  }
+  
+  .mobile-lang-picker {
+    margin-top: var(--space-4);
+    display: none;
+  }
+  
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .desktop-nav,
+    .lang-picker {
+      display: none;
+    }
+    
+    .mobile-menu-toggle {
+      display: flex;
+    }
+    
+    .mobile-lang-picker {
+      display: block;
+    }
+  }
+  
+  /* RTL specific tweaks */
+  .rtl .mobile-menu-toggle.open span:nth-child(1) {
+    transform: translateY(9px) rotate(-45deg);
+  }
+  
+  .rtl .mobile-menu-toggle.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(45deg);
+  }
+</style>

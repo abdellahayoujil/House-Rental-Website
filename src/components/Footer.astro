@@ -1,0 +1,113 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>Villa Serenity</h3>
+        <p>{t('footer.tagline')}</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>{t('footer.quickLinks')}</h4>
+        <ul>
+          <li><a href="#home">{t('nav.home')}</a></li>
+          <li><a href="#house-info">{t('nav.houseInfo')}</a></li>
+          <li><a href="#location">{t('nav.location')}</a></li>
+          <li><a href="#gallery">{t('nav.gallery')}</a></li>
+          <li><a href="#contact">{t('nav.contact')}</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>{t('footer.contactInfo')}</h4>
+        <p>
+          <strong>{t('contact.email')}:</strong> contact@villaserenity.com
+        </p>
+        <p>
+          <strong>{t('contact.phone')}:</strong> +1 (555) 123-4567
+        </p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Villa Serenity. {t('footer.rights')}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    padding: var(--space-5) 0 var(--space-2);
+  }
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+  
+  .footer h3, .footer h4 {
+    color: var(--color-white);
+    margin-bottom: var(--space-2);
+  }
+  
+  .footer-logo p {
+    margin-bottom: var(--space-3);
+    opacity: 0.8;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-links li {
+    margin-bottom: var(--space-1);
+  }
+  
+  .footer-links a {
+    color: var(--color-white);
+    opacity: 0.8;
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+  
+  .footer-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+  
+  .footer-contact p {
+    margin-bottom: var(--space-1);
+    opacity: 0.8;
+  }
+  
+  .footer-bottom {
+    padding-top: var(--space-3);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+  
+  @media (max-width: 768px) {
+    .footer {
+      padding: var(--space-4) 0 var(--space-2);
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+  }
+</style>
